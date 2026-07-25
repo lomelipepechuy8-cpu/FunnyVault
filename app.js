@@ -344,7 +344,8 @@ function setLoadingState(loading) {
 function showSuccess(result) {
   // Ocultar todo el formulario, mostrar estado de éxito
   els.formStep3.classList.add('hidden');
-  els.steps.style.display = 'none';
+  const stepsEl = document.querySelector('.steps');
+  if (stepsEl) stepsEl.style.display = 'none';
   hideFormSteps();
 
   els.successEmailDisplay.textContent = state.email;
