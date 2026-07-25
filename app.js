@@ -6,7 +6,7 @@
 
 // ─── CONFIGURACIÓN ────────────────────────────────────────────
 // Google Apps Script desplegado
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxn6dhnVq3lKNZGg5_0hXnEK-ILTRWltIp8rpipqloaHdnC192SjiGeDRjKZupF5Qk1/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1zR_0BFXREQI6xIY7hVz2XQlg_4gWhm_jwPzVmH83Q5AdbORdKYVjnXZbsQKCOB34/exec';
 const MAX_FILE_SIZE_MB = 10;
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
