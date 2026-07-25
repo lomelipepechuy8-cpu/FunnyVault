@@ -1,0 +1,24 @@
+# FunnyVault — render.yaml
+# Configuración para desplegar automáticamente en Render
+
+services:
+  - type: web
+    name: funnyvault-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      # ⚠️  Estas variables las configuras manualmente en el dashboard de Render:
+      # GOOGLE_SERVICE_ACCOUNT_JSON
+      # GOOGLE_SHEET_ID
+      # SHEET_NAME
+      # DRIVE_FOLDER_NAME
+      # GMAIL_USER
+      # GMAIL_APP_PASSWORD
+      # ADMIN_KEY
+      # MIN_RATING

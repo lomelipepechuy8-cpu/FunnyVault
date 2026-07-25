@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>😂 FunnyVault — Sube tu imagen más graciosa</title>
+  <meta name="description" content="Sube tu imagen más graciosa, obtén una calificación de nuestro equipo y recibe tu resultado por correo. ¡Demuestra tu humor!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background particles -->
+  <div class="bg-gradient"></div>
+  <div id="particles" class="particles"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-emoji">😂</span>
+        <span class="logo-text">FunnyVault</span>
+      </div>
+      <div class="header-badge">Beta</div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main class="main">
+    <section class="hero">
+      <div class="hero-tag">✨ ¡Comparte tu humor con el mundo!</div>
+      <h1 class="hero-title">
+        ¿Tienes la imagen<br />
+        <span class="gradient-text">más graciosa</span> de internet?
+      </h1>
+      <p class="hero-subtitle">
+        Súbela, espera la calificación de nuestro equipo y descubre si tu humor es legendario 🏆
+      </p>
+    </section>
+
+    <!-- Upload Card -->
+    <section class="card-wrapper">
+      <div class="card" id="upload-card">
+        <!-- Steps indicator -->
+        <div class="steps">
+          <div class="step active" id="step-1">
+            <div class="step-number">1</div>
+            <span>Tu info</span>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step" id="step-2">
+            <div class="step-number">2</div>
+            <span>Imagen</span>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step" id="step-3">
+            <div class="step-number">3</div>
+            <span>Confirmar</span>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="upload-form" novalidate>
+          <!-- Step 1: User info -->
+          <div class="form-step" id="form-step-1">
+            <h2 class="form-title">¿Quién eres?</h2>
+            <p class="form-subtitle">Te notificaremos cuando revisemos tu imagen</p>
+
+            <div class="field-group">
+              <label class="field-label" for="input-name">
+                <span class="field-icon">👤</span> Nombre
+              </label>
+              <input
+                type="text"
+                id="input-name"
+                class="field-input"
+                placeholder="Ej. Carlos Meme-ster"
+                autocomplete="name"
+                required
+              />
+              <span class="field-error" id="error-name"></span>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="input-email">
+                <span class="field-icon">📧</span> Correo electrónico
+              </label>
+              <input
+                type="email"
+                id="input-email"
+                class="field-input"
+                placeholder="tu@correo.com"
+                autocomplete="email"
+                required
+              />
+              <span class="field-error" id="error-email"></span>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="btn-next-1">
+              Continuar
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <!-- Step 2: Image upload -->
+          <div class="form-step hidden" id="form-step-2">
+            <h2 class="form-title">Sube tu imagen</h2>
+            <p class="form-subtitle">JPG, PNG, GIF o WebP · Máx. 10 MB</p>
+
+            <!-- Drop zone -->
+            <div class="drop-zone" id="drop-zone" tabindex="0" role="button" aria-label="Zona de carga de imagen">
+              <div class="drop-zone-content" id="drop-default">
+                <div class="drop-icon">
+                  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="30" fill="url(#dg)"/>
+                    <path d="M21 40l8-10 6 7 4-5 8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="24" cy="26" r="3" fill="#fff" fill-opacity="0.8"/>
+                    <defs>
+                      <linearGradient id="dg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#a855f7"/>
+                        <stop offset="1" stop-color="#ec4899"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <p class="drop-text">Arrastra tu imagen aquí</p>
+                <p class="drop-subtext">o haz clic para seleccionar</p>
+                <button type="button" class="btn btn-outline" id="btn-select-file">
+                  Elegir archivo
+                </button>
+              </div>
+              <!-- Preview -->
+              <div class="drop-zone-preview hidden" id="drop-preview">
+                <img id="preview-img" src="" alt="Preview de tu imagen graciosa" class="preview-img" />
+                <div class="preview-overlay">
+                  <button type="button" class="btn-remove" id="btn-remove-image" aria-label="Eliminar imagen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                  </button>
+                  <span class="preview-name" id="preview-name"></span>
+                </div>
+              </div>
+            </div>
+
+            <input type="file" id="file-input" accept="image/*" class="visually-hidden" aria-label="Seleccionar imagen" />
+            <span class="field-error" id="error-image"></span>
+
+            <div class="btn-row">
+              <button type="button" class="btn btn-ghost" id="btn-back-1">← Atrás</button>
+              <button type="button" class="btn btn-primary" id="btn-next-2">
+                Continuar
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Confirm -->
+          <div class="form-step hidden" id="form-step-3">
+            <h2 class="form-title">¡Listo para enviar!</h2>
+            <p class="form-subtitle">Confirma que todo está correcto</p>
+
+            <div class="summary-card">
+              <div class="summary-preview-wrap">
+                <img id="summary-img" src="" alt="Vista previa de la imagen" class="summary-img" />
+              </div>
+              <div class="summary-details">
+                <div class="summary-row">
+                  <span class="summary-label">👤 Nombre</span>
+                  <span class="summary-value" id="summary-name">—</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">📧 Email</span>
+                  <span class="summary-value" id="summary-email">—</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">🖼️ Archivo</span>
+                  <span class="summary-value" id="summary-file">—</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-box">
+              <span class="info-icon">💡</span>
+              <p>Nuestro equipo revisará tu imagen y, si obtiene una calificación de <strong>7 o más sobre 10</strong>, recibirás un correo con tu resultado. ¡Buena suerte!</p>
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn btn-ghost" id="btn-back-2">← Atrás</button>
+              <button type="submit" class="btn btn-submit" id="btn-submit">
+                <span class="btn-text">🚀 Enviar imagen</span>
+                <span class="btn-spinner hidden" id="submit-spinner">
+                  <span class="spinner"></span>
+                  Enviando...
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Success state -->
+        <div class="success-state hidden" id="success-state">
+          <div class="success-animation">
+            <div class="success-circle">
+              <svg class="success-check" viewBox="0 0 52 52">
+                <circle class="check-circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="check-mark" d="M14 27l8 8 16-16" fill="none"/>
+              </svg>
+            </div>
+          </div>
+          <h2 class="success-title">¡Imagen enviada! 🎉</h2>
+          <p class="success-msg">
+            Tu imagen está siendo revisada por nuestro equipo de humor.<br/>
+            Si obtiene <strong>7 o más</strong>, te notificaremos en
+            <span class="success-email" id="success-email-display"></span>
+          </p>
+          <div class="success-meta" id="success-meta"></div>
+          <button type="button" class="btn btn-primary" id="btn-upload-another">
+            Subir otra imagen 😄
+          </button>
+        </div>
+
+        <!-- Error state -->
+        <div class="error-state hidden" id="error-state">
+          <div class="error-icon">😵</div>
+          <h2 class="error-title">Algo salió mal</h2>
+          <p class="error-msg" id="error-msg-text">Por favor intenta nuevamente.</p>
+          <button type="button" class="btn btn-primary" id="btn-retry">Intentar de nuevo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works">
+      <h2 class="section-title">¿Cómo funciona?</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-card-num">01</div>
+          <div class="step-card-icon">📸</div>
+          <h3>Sube tu imagen</h3>
+          <p>Arrastra o selecciona la imagen más graciosa de tu colección.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-card-num">02</div>
+          <div class="step-card-icon">🔍</div>
+          <h3>Revisión del equipo</h3>
+          <p>Nuestros expertos en humor califican tu imagen del 1 al 10.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-card-num">03</div>
+          <div class="step-card-icon">📧</div>
+          <h3>Recibe tu resultado</h3>
+          <p>Si tu imagen es ≥ 7, recibirás un correo con tu calificación oficial.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-card-num">04</div>
+          <div class="step-card-icon">🏆</div>
+          <h3>¡Hazte leyenda!</h3>
+          <p>Las mejores imágenes serán reconocidas en nuestro Hall of Fame.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>😂 FunnyVault — Donde el humor es tomado muy en serio.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
